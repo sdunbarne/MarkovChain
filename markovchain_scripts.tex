@@ -1,0 +1,77 @@
+
+\begin{description}
+
+% \item[Geogebra] 
+
+% \link{  .ggb}{GeoGebra applet}
+
+\item[R] 
+
+\link{http://www.math.unl.edu/~sdunbar1/markovchain.R}{R script for markovchain.}
+
+\begin{lstlisting}[language=R]
+library(markovchain)
+
+stateNames <- c("R", "N", "S")
+transMatrix <- matrix( c(1/2, 1/4, 1/4, 1/2, 0, 1/2, 1/4, 1/4, 1/2),
+                      nrow=3, byrow=TRUE)
+startState <- "N"
+
+weatherOz <- new("markovchain", transitionMatrix=transMatrix,
+                 states=stateNames, name="Weather_in_Oz")
+print( weatherOz )
+
+print( summary(weatherOz) )
+
+pathLength <- 10 
+weatherPath <- rmarkovchain(n=pathLength,
+                            object = weatherOz, t0 = startState)
+cat("A sample starting from N: ", weatherPath, "\n")
+weatherPath <- rmarkovchain(n=pathLength,
+                            object = weatherOz, t0 = startState)
+cat("Another sample starting from N: ", weatherPath, "\n")
+
+largeN <- 1000; startStable <- 100
+weatherPath <- rmarkovchain(n=largeN,
+                            object = weatherOz, t0 = startState)
+stablePattern <-  weatherPath[startStable:largeN]
+empiricalStable <- c( mean( stablePattern == "R" ),
+                     mean( stablePattern == "N" ),
+                     mean( stablePattern == "S" ))
+theorStable <- steadyStates(weatherOz)
+cat("Empirical stable distribution: ",  empiricalStable, "\n")
+cat("Theoretical stable distribution: ", theorStable, "\n")
+\end{lstlisting}  
+
+% \item[Octave]
+
+% \link{http://www.math.unl.edu/~sdunbar1/    .m}{Octave script for .}
+
+% \begin{lstlisting}[language=Octave]
+
+% \end{lstlisting}
+
+% \item[Perl] 
+
+% \link{http://www.math.unl.edu/~sdunbar1/    .pl}{Perl PDL script for .}
+
+% \begin{lstlisting}[language=Perl]
+
+% \end{lstlisting}
+
+% \item[SciPy] 
+
+% \link{http://www.math.unl.edu/~sdunbar1/    .py}{Scientific Python script for .}
+
+% \begin{lstlisting}[language=Python]
+
+% \end{lstlisting}
+
+\end{description}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
