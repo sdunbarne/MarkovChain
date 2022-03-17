@@ -202,6 +202,7 @@ today?
       state space
     \item \( P \) -- \( k times k \) transition probability matrix
     \item \( \nu \) -- A dummy variable for summation
+    \item \(i, j\) -- arbitrary or generic state indices  
     \item \( (P^n)_{ij} \) -- the \( i,j \) entry of the \( n \)th
       power of \( P \).
     \item \( \mathbf{\pi} \) -- stationary distribution satisfying
@@ -702,7 +703,9 @@ defined as:
 \hr
 
 \visual{Section Starter Question}{../../../../CommonInformation/Lessons/question_mark.png}
-\section*{Section Ending Answer} Use the Law of Total Probability to
+\section*{Section Ending Answer}
+
+Use the Law of Total Probability to
 calculate this probability.  This considers every possible weather
 combination with their respective conditional probabilities.
 \[
@@ -828,7 +831,7 @@ Chapter 2, 1975.
             N =
             \begin{pmatrix}
                 4/3 & 1 \\
-                0 & 7/8 \\
+                0 & 5/4 \\
             \end{pmatrix}
             \qquad B = NA =
             \begin{pmatrix}
@@ -950,7 +953,8 @@ Chapter 2, 1975.
     Problem created by LT Grant, 2006.
     \begin{enumerate}[label=(\alph*)]
     \item
-        No, expect absorption probabilities to increase.
+        Expect absorption probabilities from \( B \) to \(E\) to
+        increase and absorption probability of \( B \) to \( E \) to decrease.
     \item
         From \( A \), probability to \( E \) to increase, to \( F \) to
         decrease. From \( D \), probability to \( E \) to increase, to \(
@@ -968,9 +972,9 @@ Chapter 2, 1975.
             .
         \]
     \item
-        From \( A \), probability to \( E \) is \( 0.792 \), to \( F \)
-        to decrease is \( 0.208 \). From \( D \), probability to \( E \)
-        is approximately \( 0.458 \), to \( F \) is approximately \(
+        From \( A \), probability to \( E \) increases to \( 0.792 \), to \( F \)
+        decreases to \( 0.208 \). From \( D \), probability to \( E \)
+        increases to approximately \( 0.458 \), to \( F \) decreases to approximately \(
         0.542 \).
 \end{enumerate}
 \end{solution}
@@ -993,15 +997,17 @@ Chapter 2, 1975.
     %            interchanges}}
     %      \end{align*}
     \[
-        P_{jk} =
+        P_{ij} =
         \begin{cases}
-            (\frac{j}{N})^2 \qquad k = j-1, \qquad j=1,2,\dots,N \\
-            (2\frac{j}{N})\frac{N-j}{N} \qquad k = j, \qquad j=0,1,2,\dots,N
+            (\frac{i}{N})^2 \qquad j = i-1, \qquad i=1,2,\dots,N \\
+            (2\frac{i}{N})\frac{N-i}{N} \qquad j = i, \qquad i=0,1,2,\dots,N
             \\
-            1- (\frac{j}{N})^2 \qquad k = j-1, \qquad j=0,1,2,\dots,N-1
+            1- (\frac{i}{N})^2 \qquad j = i-1, \qquad i=0,1,2,\dots,N-1
             \\
+            0 \qquad \text{otherwise}
         \end{cases}
     \] There are no absorbing states, all states are recurrent.  Yes
+
     ergodic. As an example, for \( N = 3 \), the transition probability
     matrix is
     \[
@@ -1040,14 +1046,15 @@ Chapter 2, 1975.
     % interchanges} | j \text{ balls in first urn after $n$
     % interchanges}]
     \[
-        P_{jk}
+        P_{ij}
         \begin{cases}
-            \left( \frac{j}{N}\right)q \qquad k = j-1, \qquad j=1,2,\dots,N
+            \left( \frac{i}{N}\right)q \qquad j = i-1, \qquad i=1,2,\dots,N
             \\
-            \left( \frac{j}{N} \right) p + \left( \frac{N-j}{N} \right)
-            q \qquad k = j, \qquad j=0,1,2,\dots,N \\
-            \left( 1- \frac{j}{N} \right) p \qquad k = j+1, \qquad
-            j=0,1,2,\dots,N-1 \\
+            \left( \frac{i}{N} \right) p + \left( \frac{N-i}{N} \right)
+            q \qquad j = i, \qquad i=0,1,2,\dots,N \\
+            \left( 1- \frac{i}{N} \right) p \qquad j = i+1, \qquad
+            i=0,1,2,\dots,N-1 \\
+            0 \qquad \text{otherwise}
         \end{cases}
     \] An example in the case \( N=4 \)
     \[
@@ -1065,6 +1072,9 @@ Chapter 2, 1975.
     [ 1/16, 1/4, 3/8, 1/4, 1/16] \), for \( p =3/4 \), \( q = 1/4 \),
     normalized, this is approximately \( [0.007, 0.082, 0.370, 0.740,
     0.555] \).
+
+    There are no absorbing or transient states, all states are
+    recurrent.  This Markov chain is ergodic.
 \end{solution}
 \begin{exercise}
     Determine the transition probability matrix for the following Markov
@@ -1086,14 +1096,15 @@ Chapter 2, 1975.
     %   interchanges}]
     %   =
     \[
-        P_{jk} =
+        P_{ij} =
         \begin{cases}
-            \left( 1-\frac{j}{N}\right)p \qquad k = j-1, \qquad j=1,2,\dots,N
+            \left( 1-\frac{i}{N}\right)p \qquad j = i-1, \qquad i=1,2,\dots,N
             \\
-            \left( \frac{j}{N} \right) p + \left( \frac{N-j}{N} \right)
-            q \qquad k = j, \qquad j=0,1,2,\dots,N \\
-            \left( \frac{j}{N} \right) q \qquad k = j+1, \qquad j=0,1,2,\dots,N-1.
+            \left( \frac{i}{N} \right) p + \left( \frac{N-i}{N} \right)
+            q \qquad j = i, \qquad i=0,1,2,\dots,N \\
+            \left( \frac{i}{N} \right) q \qquad j = i+1, \qquad i=0,1,2,\dots,N-1.
             \\
+            0 \qquad \text{otherwise}
         \end{cases}
     \]
 \end{solution}
@@ -1134,13 +1145,24 @@ Chapter 2, 1975.
         {FiveThirtyEight Riddler column of December 14, 2018.}
     \end{remark}
 
-    Just keep track of the different ``states'' of Louie’s umbrellas.
+    Keep track of the different ``states'' of Louie’s umbrellas at home.
     He could have three at home and zero at work, two at home and one at
     work, one at home and two at work, or zero at home and three at
-    work.  The movement through the random states (the work week) is
+    work.  In this solution, there are five states:  zero, one, two or three
+    umbrellas at home plus the state in which Louie has already gotten
+    wet.  The rows of the matrix are Louie’s current state, and the
+    columns are his destination.  For example, he starts in the third
+    row (two umbrellas at home).  There is no chance he’ll end up with
+    zero umbrellas at home, there is a \( 0.3 \) chance he’ll end the day
+    with just one at home (from rain in the morning and no rain in the
+    afternoon), a \( 0.5 \) chance with two at home, a \(
+    0.2 \) chance
+    with three at home, and no chance he’ll get wet on this first day.
+
+    The movement through the random states (the work week) is
     described by the transition matrix, which contains the probabilities
-    of umbrellas moving from one place to another on any given day.  In
-    our particular case, the matrix looks like this:
+    of umbrellas moving from one place to another on any given day.  
+    The transition probability matrix is:
     \[
         \begin{pmatrix}
             0.3 & 0.2 & 0.0 & 0.0 & 0.5\\
@@ -1150,18 +1172,10 @@ Chapter 2, 1975.
             0.0 & 0.0 & 0.0 & 0.0 & 1.0
         \end{pmatrix}
         .
-    \] In this solution, there are five states:  zero, one, two or three
-    umbrellas at home plus the state in which Louie has already gotten
-    wet.  The rows of the matrix are Louie’s current state, and the
-    columns are his destination.  For example, he starts in the third
-    row (two umbrellas at home).  There is no chance he’ll end up with
-    zero umbrellas at home, there’s a 0.3 chance he’ll end the day
-    with just one at home, a 0.5 chance with two at home, a 0.2 chance
-    with three at home, and no chance he’ll get wet on this first day.
+    \] 
     To get the probabilities for the entire work week, simply multiply
     this matrix by itself five times, representing the meteorological
-    randomness unfolding over the five days, which gives us the
-    following:
+    randomness unfolding over the five days, which gives
     \[
         \begin{pmatrix}
             \nonumber 0.04791 &0.07634 &0.04976 &0.01776 &0.80823\\
@@ -1179,7 +1193,7 @@ Chapter 2, 1975.
     and get \( 69.27 \) percent.
 
     \begin{remark}
-        This is a version of Ross, page 181, problem number 22
+        This is a version of Ross, page 181, problem number 22.
     \end{remark}
 \end{solution}
 \begin{exercise}
@@ -1256,7 +1270,7 @@ Chapter 2, 1975.
         This is a more complicated question, so to illustrate the
         approach solve it for the case \( N=3 \).  Begin by breaking
         each round into a number of stages, which track the progress of
-        cups as they are filled.  In the diagram of a single below, each
+        cups as they are filled.  In the diagram below, each
         cup is either empty (no ball), is red (incorrect ball), or is
         green (correct ball).  The transition probabilities are on the
         arrows.
@@ -1270,11 +1284,13 @@ Chapter 2, 1975.
         with the cup or ball numbers, the position merely indicates the
         number of correctly or incorrectly filled cups. For example, if \(
         2 \) balls have been thrown into \( 2 \) cups, one correctly
-        numbered, one incorrectly numbered, is the center diagram.  Then
+        numbered, one incorrectly numbered, the center diagram at
+        \(j=1, k=2\)
+        illustrates the case.  Then
         on the next ball thrown, that ball can incorrectly go into the
         empty cup with probability \( \frac{N-i}{N} \cdot \frac{1}{N} \).
         The correct ball can go into the correct cup with probability \(
-        \frac{1}{N2} \). In this diagram, self-loops have whatever
+        \frac{1}{N^2} \). In this diagram, self-loops have whatever
         probability is required so that the outgoing arrows sum to 1.
         This is a Markov chain.  We start on the initial state on the
         left (all cups empty), and advance to the absorbing state on the
