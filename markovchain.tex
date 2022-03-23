@@ -1,14 +1,14 @@
 %%% -*-LaTeX-*-
 %%% markovchain.tex.orig
 %%% Prettyprinted by texpretty lex version 0.02 [21-May-2001]
-%%% on Fri Jun 12 08:02:20 2020
+%%% on Mon Mar 21 07:56:55 2022
 %%% for Steve Dunbar (sdunbar@family-desktop)
 
 \documentclass[12pt]{article}
 
 \input{../../../../etc/macros}
-\input{../../../../etc/mzlatex_macros}
-%% \input{../../../../etc/pdf_macros}
+%% \input{../../../../etc/mzlatex_macros}
+\input{../../../../etc/pdf_macros}
 
 \bibliographystyle{plain}
 
@@ -59,9 +59,12 @@ today?
 
 \begin{enumerate}
     \item
-        A \defn{stochastic process} is, in the simplest terms, a random
-        function.  A specific outcome of the process must be specified
-        in terms of the probability of it happening.
+        A \defn{stochastic process} is%
+        a random function on a domain.  The domain can be discrete or
+        continuous.  The domain is often interpreted as time.  Stochastic
+        processes are in contrast to deterministic processes.  A specific
+        outcome of the process at some time must be specified in terms of
+        the probability of it happening.
     \item
         A discrete time discrete state space stochastic process is a
         \defn{Markov chain} if \( \Prob{X_{n+1} \given X_n, X_{n-1},
@@ -72,7 +75,7 @@ today?
         Denote the probability of making the transition from state \( x_i
         \) to \( x_j \) at time \( n \) as:
         \[
-            p_{ij}(n)=\Prob{O_{n+1}=x_j \given O_{n}=x_i}.
+            p_{ij}(n)=\Prob{X_{n+1}=x_j \given X_{n}=x_i}.
         \] If the probability of a state transition in a Markov process
         does not depend on \( n \), then it is a \defn{time-homogeneous
         Markov chain}.  If the state space is finite, say \( \card{\mathcal
@@ -110,7 +113,12 @@ today?
         The outcome of a \defn{discrete time discrete state space
         process} is one of several states at a sequence of times.  Along
         a specific sample, as time progresses the observed sequence of
-        states from the set \( \mathcal{X} \) is a \defn {sample path}.
+        states from the set \( \mathcal{X} \) is a \defn {sample
+          path}.
+    \item
+        The outcome of a \defn{discrete time discrete state space stochastic
+    process} is one of several discrete states at a sequence of discrete
+    times.%
     \item
         A \defn{discrete time Markov process} is a stochastic process
         having a fixed probability that it will be in state \( x_j \) at
@@ -125,34 +133,33 @@ today?
         \defn{stochastic matrix}.
     \item
         A \defn{Markov chain} is a discrete time discrete state space
-        defined by its transition probability matrix \( P \) with
+        stochastic process defined by its transition probability matrix \( P \) with
         entries
         \[
             p_{ij}(n)=\Prob{X_{n+1}=x_j \given X_n=x_i}.
-        \] The entries must satisfy \( P_{ij} \ge 0 \) and \( \sum_ {j=1}^k
-        P_{ij} = 1 \) for each \( i=1, \dots, k \), so that each row is
-        a probability distribution on \( X \). % \item
-        %     The sequence of states \( X_0 = x_i, X_1 = x_j, X_2 = x_l
-        %     \dots \) is a \defn{sample path} of the Markov chain.
-        % \item
+        \] The entries must satisfy \( P_{ij} \ge 0 \) and \( \sum_ {\nu=1}^k
+        P_{i \nu} = 1 \) for each \( i=1, \dots, k \), so that each row is
+        a probability distribution on \( X \).
+    \item
+        The sequence of states \( X_0 = x_i, X_1 = x_j, X_2 = x_l \dots \)
+        is a \defn{sample path} of the Markov chain. % \item
         %     A chain is \defn{ergodic}, also called \defn{irreducible}, if it
         %     is possible to move from any one state to any other, not
         %     necessarily in one move.
         % \item
         %     A chain is \defn{regular} if some power of the transition matrix
         %     has all positive entries.
-        % \item
-        %     A regular Markov chain has a \defn{stationary distribution} \(
-        %     \pi_i > 0 \), and \( \sum_{i=1}^k \pi_i = 1 \) with \(
-        %     \mathbf{\pi} \) satisfying
-        %     \[
-        %         \sum\limits_{i=1}^k \pi_i P_{ij} = \pi_{j}.
-        %     \] Thus \( \mathbf{\pi} \) is a left eigenvector of \( P \) with
-        %     eigenvalue \( 1 \).  Alternative terminology is that the Markov
-        %     chain is \defn{stable on the distribution \( \mathbf{\pi} \)}
-        %     and that \( \pi \) is the \defn{stable distribution} for the
-        %     Markov chain.
-        % \item
+    \item
+        A regular Markov chain has a \defn{stationary distribution} \(
+        \pi_i > 0 \), and \( \sum_{i=1}^k \pi_i = 1 \) with \( \mathbf{\pi}
+        \) satisfying
+        \[
+            \sum\limits_{i=1}^k \pi_i P_{ij} = \pi_{j}.
+        \] Thus \( \mathbf{\pi} \) is a left eigenvector of \( P \) with
+        eigenvalue \( 1 \).  Alternative terminology is that the Markov
+        chain is \defn{stable on the distribution \( \mathbf{\pi} \)}
+        and that \( \pi \) is the \defn{stable distribution} for the
+        Markov chain. % \item
         %     A Markov chain is \defn{aperiodic} if for all states \( i \) and
         %     \( j \),
         %     \[
@@ -196,37 +203,46 @@ today?
 
 \section*{Notation}
 \begin{enumerate}
-    \item \( \mathcal{X}=\{x_1,x_2,\ldots,x_i, \ldots, \} \) -- state
-      space of a discrete space stochastic process
-    \item \( \card{\mathcal{X}} = k \) -- cardinality of a finite
-      state space
-    \item \( P \) -- \( k times k \) transition probability matrix
-    \item \( \nu \) -- A dummy variable for summation
-    \item \(i, j\) -- arbitrary or generic state indices  
-    \item \( (P^n)_{ij} \) -- the \( i,j \) entry of the \( n \)th
-      power of \( P \).
-    \item \( \mathbf{\pi} \) -- stationary distribution satisfying
-\[
-    \sum\limits_{\nu=1}^k \pi_\nu P_{\nu j} = \pi_j}
-\] with \( \pi_\nu > 0 \), and \( \sum_{\nu=1}^k \pi_\nu = 1 \)
-\item \[
-    P=
-    \begin{pmatrix}
-        I & 0 \\
-        A & T \\
-    \end{pmatrix}
-\] -- canonical form for the transition matrix \( P \) with \( a \)
-absorbing states and \( t \) transient states where \( a + t = k \),
-where \( I \) is the \( a\times a \) identity matrix, and \( 0 \) is
-the \( a\times t \) matrix of zeros.
+    \item
+        \( \mathcal{X}=\{x_1,x_2,\ldots,x_i, \ldots, \} \) -- state
+        space of a discrete space stochastic process
+    \item
+        \( \card{\mathcal{X}} = k \) -- cardinality of a finite state
+        space
+    \item
+        \( P \) -- \( k \times k \) transition probability matrix
+    \item
+        \( \nu \) -- A dummy variable for summation
+    \item
+        \( i, j \) -- arbitrary or generic state indices
+    \item
+        \( (P^n)_{ij} \) -- the \( i,j \) entry of the \( n \)th power
+        of \( P \).
+    \item
+        \( \mathbf{\pi} \) -- stationary distribution satisfying
+        \[
+            \sum\limits_{\nu=1}^k \pi_\nu P_{\nu j} = \pi_j
+        \] with \( \pi_\nu > 0 \), and \( \sum_{\nu=1}^k \pi_\nu = 1 \)
+    \item
+        \[
+            P=
+            \begin{pmatrix}
+                I & 0 \\
+                A & T \\
+            \end{pmatrix}
+        \] -- canonical form for the transition matrix \( P \) with \( a
+        \) absorbing states and \( t \) transient states where \( a + t
+        = k \), where \( I \) is the \( a\times a \) identity matrix,
+        and \( 0 \) is the \( a\times t \) matrix of zeros.
 \end{enumerate}
-    
+
 \visual{Mathematical Ideas}{../../../../CommonInformation/Lessons/mathematicalideas.png}
 \section*{Mathematical Ideas}
 
 \subsection*{Introduction}
 
-This section is a survey of basic concepts and facts about Markov
+This section is a survey of basic concepts and facts about discrete
+time Markov
 processes and Markov chains.  Detailed treatments are in
 \cite{durrett09, grinstead97, karlin75, kemeny74, kemeny60, levin09,
 ross06, stirzaker05-stoch-proces-model}, among other standard
@@ -239,36 +255,36 @@ of probability theory.
     A \defn{stochastic process} is%
     \index{stochastic process}
     a random function on a domain.  The domain can be discrete or
-    continuous.  The domain is often interpreted as time.  Stochastic processes
-    are in contrast to deterministic processes.  A specific outcome of
-    the process at some time must be specified in terms of the
-    probability of it happening.
+    continuous.  The domain is often interpreted as time.  Stochastic
+    processes are in contrast to deterministic processes.  A specific
+    outcome of the process at some time must be specified in terms of
+    the probability of it happening.
 \end{definition}
 
 \begin{example}
-Consider the following simple example:
-\begin{align*}
-    f(t) &= 2t \\
-    g(t) &=
-    \begin{cases}
-        2t & \text{ with probability \( 0.98 \) }\\
-        3t & \text{ with probability \( 0.02 \)}.
-    \end{cases}
-\end{align*}
-For \( f(2) \) the outcome will always be 4, it is deterministic.
-However for \( g(2) \) the most likely outcome is 4 but this will fail
-to be true for about \( 2\% \) of the trials.
+    Consider the following simple example:
+    \begin{align*}
+        f(t) &= 2t \\
+        g(t) &=
+        \begin{cases}
+            2t & \text{ with probability \( 0.98 \) }\\
+            3t & \text{ with probability \( 0.02 \)}.
+        \end{cases}
+    \end{align*}
+    For \( f(2) \) the outcome will always be 4, it is deterministic.
+    However for \( g(2) \) the most likely outcome is 4 but this will
+    fail to be true for about \( 2\% \) of the trials.
 \end{example}
 
 \begin{definition}
     The outcome of a \defn{discrete time discrete state space stochastic
-    process} is one of several discrete states at a sequence of
-  discrete times.%
+    process} is one of several discrete states at a sequence of discrete
+    times.%
     \index{discrete time discrete state
         space stochastic process}
-    For the purposes of this introduction call these states \( \mathcal{X}=\{x_1,x_2,\ldots,x_i,
-    \ldots, \} \).  Sometimes the discrete state space \( \mathcal{X} \) is
-    infinite, but often the state space is finite.  At time \( n \),
+    For the purposes of this introduction call these states \( \mathcal{X}=\set{x_1,x_2,\ldots,x_i,
+    \ldots} \).  Sometimes the discrete state space \( \mathcal{X} \)
+    is infinite, but often the state space is finite.  At time \( n \),
     guided by some information, the process acts in a probabilistic
     manner and outputs some \( x_i \).  Thus along a specific sample, as
     time progresses an observed sequence of states from the set \(
@@ -276,10 +292,10 @@ to be true for about \( 2\% \) of the trials.
 \end{definition}
 
 \begin{definition}
-    A \defn{discrete time Markov process} \( X_n \) is a stochastic process having
-    a fixed probability that it will be in state \( x_j \) at time \(
-    n+1 \) when the process is in state \( x_i \) at time \( n \), with
-    no dependence on the prior history.%
+    A \defn{discrete time Markov process} \( X_n \) is a stochastic
+    process having a fixed probability that it will be in state \( x_j \)
+    at time \( n+1 \) when the process is in state \( x_i \) at time \(
+    n \), with no dependence on the prior history.%
     \index{discrete time Markov process}
     Symbolically,
     \begin{multline*}
@@ -295,15 +311,16 @@ to be true for about \( 2\% \) of the trials.
 \end{definition}
 
 \begin{example}
-  As a contrast, consider a discrete time stochastic process
-  modeling the daily closing price of a
-company's stock.  At time \( n \), there is a wealth of available
-information influencing the current price:  the past prices of the stock, the current market
-conditions, the weather forecast for the next few days, even the price
-of tea in China. Instead, modeling the daily closing price of a stock as
-a discrete time \emph{Markov process}, at time \( n + 1 \) the \emph{only}
-information that would affect the process would be the observed stock
-price at time \( n \).
+    As a contrast, consider a discrete time stochastic process modeling
+    the daily closing price of a company's stock.  At time \( n \),
+    there is a wealth of available information influencing the current
+    price:  the past prices of the stock, the current market conditions,
+    the weather forecast for the next few days, even the price of tea in
+    China.  This would not be a Markov process.
+    Instead, modeling the daily closing price of a stock as a
+    discrete time \emph{Markov process}, at time \( n + 1 \) the \emph{only}
+    information that would affect the process would be the observed
+    stock price at time \( n \).
 \end{example}
 
 \begin{definition}
@@ -311,8 +328,8 @@ price at time \( n \).
     not depend on \( n \), then it is a \defn{time-homogeneous Markov
     chain}.%
     \index{time-homogeneous Markov chain}
-    This means \( P_{ij}(n)=P_{ij}(m) \) for all \( n,m \). That is, the
-    transition probabilities from \( x_i \) to \( x_j \) are time
+    This means \( P_{ij}(n)=P_{ij}(m) \) for all \( n,m \).  That is,
+    the transition probabilities from \( x_i \) to \( x_j \) are time
     invariant with fixed \( P_{ij} \), called the transition
     probabilities from \( x_i \) to \( x_j \).  If the state space is
     finite, say \( \card{\mathcal{X}} = k \), then the \( P_{ij} \) are
@@ -324,7 +341,7 @@ price at time \( n \).
 
 The following is a classic example from
 \cite{kemeny74}, repeated in
-\cite{grinstead97} and many other locations.  The example puts the
+\cite{grinstead97} and many other locations. The example shows the
 concepts in context as well as introducing some other ideas.
 
 \begin{example}
@@ -340,7 +357,7 @@ concepts in context as well as introducing some other ideas.
     First label the states conveniently as \( R, N, S \), instead of \(
     x_1, x_2, x_3 \).  With the information above, define \( P_{RR} =
     1/2 \), \( P_{RN}=1/4 \) and so on.  Writing out every possible
-    transition gives \( 3^2 \) distinct possibilities. With \( k \)
+    transition gives \( 3^2 \) distinct possibilities.  With \( k \)
     states, the process has \( k^2 \) transitions with the probability \(
     P_{ij} \) of going from \( x_i \) to \( x_j \).
 
@@ -422,8 +439,8 @@ concepts in context as well as introducing some other ideas.
         R & 0.400024 & 0.200012 & 0.399963 \cr
         N & 0.400024 & 0.199951 & 0.400024 \cr
         S & 0.399963 & 0.200012 & 0.400024 }.
-    \] Hence if it is raining today, then the chance it is nice in $2$ and
-    $7$ days is \( 3/16 \) and \( 0.200012 \) respectively.
+    \] Hence if it is raining today, then the chance it is nice in \( 2 \)
+    and \( 7 \) days is \( 3/16 \) and \( 0.200012 \) respectively.
 \end{example}
 
 \subsection*{Formal Definitions}
@@ -437,9 +454,9 @@ Let the state space be a finite set \( \mathcal{X}=\{x_1,x_2,\ldots,x_k\}
     defined by its transition probability matrix \( P \) with entries
     \[
         P_{ij}(n)=\Prob{X_n=x_j \given X_{n-1}=x_i}.
-    \] The entries must satisfy \( P_{ij} \ge 0 \) and \( \sum_{\nu=1}^k P_
-    {i \nu} = 1 \) for each \( i=1, \dots, k \), so that each row is a
-    probability distribution on \( X \).
+    \] The entries must satisfy \( P_{ij} \ge 0 \) and \( \sum_{\nu=1}^k
+    P_ {i \nu} = 1 \) for each \( i=1, \dots, k \), so that each row is
+    a probability distribution on \( X \).
 \end{definition}
 
 This means that the Markov chain is a random walk among the states with
@@ -471,12 +488,11 @@ A Markov chain has a \defn{stationary distribution} if there is a vector
 \[
     \sum\limits_{i=1}^k \pi_i P_{ij} = \pi_{j}
 \] with \( \pi_i > 0 \), and \( \sum_{i=1}^k \pi_i = 1 \).  Thus \(
-\mathbf{\pi} \) is a left eigenvector of \( P \) with eigenvalue \( 1
-\).  The Perron Theorem guarantees that such a left eigenvector exists
-for probability transition matrices.
-Alternative terminology is that the Markov chain is \defn{stable on the
-distribution \( \mathbf{\pi} \)} and that \( \pi \) is the \defn{stable
-distribution}%
+\mathbf{\pi} \) is a left eigenvector of \( P \) with eigenvalue \( 1 \).
+The Perron Theorem guarantees that such a left eigenvector exists for
+probability transition matrices. Alternative terminology is that the
+Markov chain is \defn{stable on the distribution \( \mathbf{\pi} \)} and
+that \( \pi \) is the \defn{stable distribution}%
 \index{stable distribution}
 for the Markov chain.  The probabilistic interpretation of the left
 eigenvector equation is ``pick \( x_i \) from \( \mathcal{X} \) with
@@ -515,42 +531,38 @@ matrix has different names in different texts, two common names are the
 The probabilistic content of the Fundamental Theorem is that from any
 starting state \( x_i \), for large \( n \) the \( n \)th step of a
 sample path of the Markov chain has a probability close to \( \pi_j \)
-of being at \( x_j \) if \( n \) is large.  Later sections address the
+of being at \( x_j \).  Later sections address the
 question of what ``probability close to \( \pi_j \)'' means and how
 large \( n \) must be for this probability relationship to hold.
 
 \begin{example}
-    For the weather in Oz example, consider \( P^7 \) further:
-    \[
-        P^7 =
-        \begin{pmatrix}
-            & R & N & S \\
-            R & 0.400024 & 0.200012 & 0.399963 \\
-            N & 0.400024 & 0.199951 & 0.400024 \\
-            S & 0.399963 & 0.200012 & 0.400024
-        \end{pmatrix}
-        .
-    \] Note that the chance of being in any of the three states after
+  For the weather in Oz example, consider \( P^7 \) further:
+      \[
+        P^7 = \bordermatrix{ & R & N & S \cr
+        R & 0.400024 & 0.200012 & 0.399963 \cr
+        N & 0.400024 & 0.199951 & 0.400024 \cr
+        S & 0.399963 & 0.200012 & 0.400024 }.
+    \]  Note that the chance of being in any of the three states after
     seven days is almost independent of the initial state.  This means
     the weather in seven days is almost completely independent of what
-    it is today. Considering \( P^n \) for larger values of \( n \), the
-    row vectors approach \( \mathbf{\pi}=(2/5,1/5,2/5) \).
+    it is today.  Considering \( P^n \) for larger values of \( n \),
+    the row vectors approach \( \mathbf{\pi}=(2/5,1/5,2/5) \).
 \end{example}
 
 \begin{example}
-  Convergance to a stationary distribution works for the weather
-  example, but it will not work for every matrix.
-Consider:
-\[
-    Q =
-    \begin{pmatrix}
-        0 & 1 \\
-        1 & 0
-    \end{pmatrix}
-    .
-\] This matrix describes a two-state system switching states at each
-time step.  Thus \( Q^2 = I \), \( Q^3=Q \), \( Q^4=I \) and so on.
-This particular matrix does not have the property of begin aperiodic.
+    Convergence to a stationary distribution works for the weather
+    example, but it will not work for every matrix. Consider:
+    \[
+        Q =
+        \begin{pmatrix}
+            0 & 1 \\
+            1 & 0
+        \end{pmatrix}
+        .
+    \] This matrix describes a two-state system switching states at each
+    time step.  Thus \( Q^2 = I \), \( Q^3=Q \), \( Q^4=I \) and so on.
+    This particular matrix does not have the aperiodic 
+    property so it does not satisfy the requirements of the Fundamental Theorem.
 \end{example}
 
 % A Markov chain is \defn{ergodic}, also called \defn{irreducible},%
@@ -605,8 +617,8 @@ This particular matrix does not have the property of begin aperiodic.
 % \cite[pages 62-67]{karlin75}.
 
 \subsection*{Absorbing States} Up to this point the only example has
-been an irreducible, positive recurrent and aperiodic Markov chain.
-Now consider the following transition matrix:
+been an irreducible, positive recurrent and aperiodic Markov chain. Now
+consider the following transition matrix:
 \[
     P =
     \begin{pmatrix}
@@ -627,15 +639,16 @@ then it stays in those states for all steps \( n\geq N \).  Call these
 \index{absorbing states}
 that is, states which once entered are never left.
 
-The transition matrix \( P \) represents the random walk on \( {x_0,x_1,x_2,x_3,x_4}
+The transition matrix \( P \) represents the symmetric
+random walk on \( {x_0,x_1,x_2,x_3,x_4}
 \) that stops at \( x_0 \) or \( x_4 \).  Markov chains with absorbing
-states are \emph{not} irreducible.  Therefore the result above does not
-apply for a limit matrix, so introduce the \defn{transition
-probability matrix canonical form}.%
+states are \emph{not} irreducible.  Therefore the Fundamental Theorem does not
+apply for a limit matrix.  Instead introduce the \defn{transition probability
+matrix canonical form}.%
 \index{transition probability matrix canonical form}
 Given a Markov chain defined by transition matrix \( P \) with \( a \)
 absorbing states and \( t \) transient states where \( a + t = k \),
-then the matrix has the canonical form:
+then after reordering the states the matrix has the canonical form:
 \[
     P=
     \begin{pmatrix}
@@ -659,8 +672,9 @@ has the canonical form:
 
 The matrix \( N=(I-T)^{-1} \) is called the \defn{fundamental matrix}.%
 \index{fundamental matrix}
-The entries of the fundamental matrix have the following interpretation,
-\( N_{ij} \) is the expected number of times the chain is expected to be
+The section on ``Waiting Time to Absorption'' proves that the
+entries of the fundamental matrix have the following interpretation,
+\( N_{ij} \) is the expected number of times the chain will be
 at state \( x_j \) before absorption, given it started in state \( x_i \).
 So in the random walk example:
 \[
@@ -673,11 +687,12 @@ So in the random walk example:
     .
 \]
 
-Letting \( \mathbf{1} \) be the \( 1 \times t \) vector of all ones, \( t= \mathbf {1} N\)
-is the expected number of steps for a transient state to be absorbed in one of the
-absorbing states, in this case \( (3,4,3) \). Define \( B=NA \), so \( B_{ij} \) is the probability
-that starting in the \( i \)th transient state, the process ends up
-in the \( j \)th absorbing state.  In the example:
+Letting \( \mathbf{1} \) be the \( 1 \times t \) vector of all ones, \(
+t= \mathbf {1} N \) is the expected number of steps for a transient
+state to be absorbed in one of the absorbing states, in this case \( (3,4,3)
+\).  Define \( B=NA \), so \( B_{ij} \) is the probability that starting
+in the \( i \)th transient state, the process ends up in the \( j \)th
+absorbing state.  In the example:
 \[
     B = (I-T)^{-1}A =
     \begin{pmatrix}
@@ -688,9 +703,9 @@ in the \( j \)th absorbing state.  In the example:
     .
 \]
 
-The canonical form gives information  about \( P^n \) for large values of \( n \).
-As \( n\to\infty \), \( P^n \) approaches the matrix\( P^\infty \)
-defined as:
+The canonical form gives information about \( P^n \) for large values of
+\( n \). As \( n\to\infty \), \( P^n \) approaches the matrix\( P^\infty
+\) defined as:
 \[
     P^\infty =
     \begin{pmatrix}
@@ -705,11 +720,11 @@ defined as:
 \visual{Section Starter Question}{../../../../CommonInformation/Lessons/question_mark.png}
 \section*{Section Ending Answer}
 
-Use the Law of Total Probability to
-calculate this probability.  This considers every possible weather
-combination with their respective conditional probabilities.
+Use the Law of Total Probability to calculate this probability.  This
+considers every possible weather combination with their respective
+conditional probabilities.
 \[
-    \Prob{O_2 = N \given O_0 = R} = \frac{1}{2} \cdot \frac{1}{4} +
+    \Prob{X_2 = N \given X_0 = R} = \frac{1}{2} \cdot \frac{1}{4} +
     \frac{1}{4} \cdot 0 + \frac{1}{4} \cdot \frac{1}{4} = \frac{3}{16}.
 \]
 
@@ -729,19 +744,22 @@ Chapter 2, 1975.
 
 \subsection*{Algorithm}
 
-\begin{codebox}
-    \Procname{Markov Chain Simulation} \zi Comment Post:  
-    Information about a simple Markov chain \li Load Markov chain
-    library \li Set state names \li Set transition probability matrix
-    \li Set start state \li Set up Markov chain with the library \li Set
-    an example length \li Create a sample path of example length \li
-    Create a second sample path of example length \li Set a long path
-    length, and a transient time \li Create a long sample path \li Slice
-    the long sample path from the transient time to the end \li In the
-    slice count the appearance of each state \li Store in an empirical
-    array \li Compute the theoretical stable array \li \Return Empirical
-    stable distribution \li \Return Theoretical stable distribution
-\end{codebox}
+\begin{algorithm}[H]
+    \SetAlgoLined \KwData{State names and probability transition matrix}
+    \KwResult{Information about a simple Markov chain}
+
+    initialization\; Load Markov chain library\; Set state names, set
+    transition probability matrix, set start state\; Set an example
+    length and create a sample path of example length\; Create a second
+    sample path of example length\; Set a long path length, and a
+    transient time\; Create a long sample path\; Slice the long sample
+    path from the transient time to the end\; In the slice count the
+    appearance of each state\; Store in an empirical array\; Compute the
+    theoretical stable array\;
+
+    \KwRet{Stable distribution and theoretical stable distribution}
+    \caption{Markov chain simulation.}
+\end{algorithm}
 
 \subsection*{Scripts}
 
@@ -772,12 +790,12 @@ Chapter 2, 1975.
         graduate ``on time''?  What is the chance a student will
         graduate in 3 years?
     \item
-        What is the chance that a student will graduate eventually?
-        What is the chance the student will drop out?
+        What is the chance that a student will graduate eventually? What
+        is the chance the student will drop out?
     \item
         What is the expected time until a student graduates?
-\end{enumerate}
-\end{exercise}
+      \end{enumerate}
+\end{exercise}      
 \begin{solution}
     Problem created by LT Grant, 2006.
     \begin{enumerate}[label=(\alph*)]
@@ -792,7 +810,7 @@ Chapter 2, 1975.
             G& 0 & 0 & 0 & 1 }.
         \]
     \item
-        Absorbing states are \( D \) and \( G \). Transient states are \(
+        Absorbing states are \( D \) and \( G \).  Transient states are \(
         1 \), \( 2 \).
     \item
         \[
@@ -845,9 +863,10 @@ Chapter 2, 1975.
         The expected time to graduation is \( 4/3 + 1 = 7/3 \) years.
 \end{enumerate}
 \end{solution}
+
 \begin{exercise}
     Consider the grid in Figure~%
-    \ref{fig:markovchains:grid} upon which a random walker is stuck. If
+    \ref{fig:markovchains:grid} upon which a random walker is stuck.  If
     she reaches states \( E \) and \( F \) she will stop, otherwise she
     will keep walking.  At any of the other states, she is equally
     likely to choose any of the possible neighboring states.
@@ -885,7 +904,7 @@ Chapter 2, 1975.
         will end at the state \( F \)?  Starting at \( D \) what is the
         probability the walker ends at state \( E \)?  Discuss these two
         answers.
-\end{enumerate}
+    \end{enumerate}
 \end{exercise}
 \begin{solution}
     Problem created by LT Grant, 2006.
@@ -901,7 +920,7 @@ Chapter 2, 1975.
             F & 0 & 0 & 0 & 0 & 0 & 1 }.
         \]
     \item
-        Absorbing states are \( E \) and \( F \). Transient states are \(
+        Absorbing states are \( E \) and \( F \).  Transient states are \(
         A \), \( B \), \( C \), \( D \).
     \item
         \[
@@ -928,10 +947,11 @@ Chapter 2, 1975.
         \( (N \mathbf{1})_{1} = 2 + 1 + 1 + 1 = 5 \).
     \item
         From \( A \), probability to \( E \) is \( 2/3 \), to \( F \) is
-        \( 1/3 \). From \( D \), probability to \( E \) is \( 1/3 \), to
-        F is \( 2/3 \). Seems reasonable by symmetry.
+        \( 1/3 \).  From \( D \), probability to \( E \) is \( 1/3 \),
+        to F is \( 2/3 \).  Seems reasonable by symmetry.
 \end{enumerate}
 \end{solution}
+
 \begin{exercise}
     The walker returns a year later to the same grid, only to find that
     there now exists a road between \( B \) and \( E \).
@@ -947,17 +967,18 @@ Chapter 2, 1975.
     \item
         Calculate the actual probabilities for part (a) and (b) and
         comment on your results.
-\end{enumerate}
+    \end{enumerate}
 \end{exercise}
 \begin{solution}
     Problem created by LT Grant, 2006.
     \begin{enumerate}[label=(\alph*)]
     \item
-        Expect absorption probabilities from \( B \) to \(E\) to
-        increase and absorption probability of \( B \) to \( E \) to decrease.
+        Expect absorption probabilities from \( B \) to \( E \) to
+        increase and absorption probability of \( B \) to \( E \) to
+        decrease.
     \item
         From \( A \), probability to \( E \) to increase, to \( F \) to
-        decrease. From \( D \), probability to \( E \) to increase, to \(
+        decrease.  From \( D \), probability to \( E \) to increase, to \(
         F \) to decrease.
     \item
         \[
@@ -972,12 +993,13 @@ Chapter 2, 1975.
             .
         \]
     \item
-        From \( A \), probability to \( E \) increases to \( 0.792 \), to \( F \)
-        decreases to \( 0.208 \). From \( D \), probability to \( E \)
-        increases to approximately \( 0.458 \), to \( F \) decreases to approximately \(
-        0.542 \).
+        From \( A \), probability to \( E \) increases to \( 0.792 \),
+        to \( F \) decreases to \( 0.208 \).  From \( D \), probability
+        to \( E \) increases to approximately \( 0.458 \), to \( F \)
+        decreases to approximately \( 0.542 \).
 \end{enumerate}
 \end{solution}
+
 \begin{exercise}
     Determine the transition probability matrix for the following Markov
     Chain:  \( N \) black balls and \( N \) white balls are placed in
@@ -1008,7 +1030,7 @@ Chapter 2, 1975.
         \end{cases}
     \] There are no absorbing states, all states are recurrent.  Yes
 
-    ergodic. As an example, for \( N = 3 \), the transition probability
+    ergodic.  As an example, for \( N = 3 \), the transition probability
     matrix is
     \[
         \bordermatrix{ & 0 & 1 & 2 & 3 \cr
@@ -1027,6 +1049,7 @@ Chapter 2, 1975.
         4 & 0 & 0 & 0 & 1 & 0 }
     \]
 \end{solution}
+
 \begin{exercise}
     Determine the transition probability matrix for the following Markov
     Chain:  Consider two urns A and B with a total of \( N \) balls.  An
@@ -1034,10 +1057,10 @@ Chapter 2, 1975.
     selections equally likely) at time \( n \), \( n=1,2,\dots \) from
     among the totality of \( N \) balls.  Then an urn is selected at
     random, urn A with probability \( p \) and urn B with probability \(
-    q = 1- p \) and the ball previously drawn is placed in this urn.
-    The state of the system is the number of balls in the urn A. What
-    are the absorbing states, transient states, recurrent states, if
-    any?  Is this Markov chain ergodic?
+    q = 1- p \) and the ball previously drawn is placed in this urn. The
+    state of the system is the number of balls in the urn A. What are
+    the absorbing states, transient states, recurrent states, if any?
+    Is this Markov chain ergodic?
 \end{exercise}
 \begin{solution}
     Adapted from Karlin and Taylor, \booktitle{A First Course in
@@ -1075,18 +1098,19 @@ Chapter 2, 1975.
 
     There are no absorbing or transient states, all states are
     recurrent.  This Markov chain is ergodic.
-\end{solution}
+  \end{solution}
+  
 \begin{exercise}
     Determine the transition probability matrix for the following Markov
     Chain:  Consider two urns A and B with a total of \( N \) balls.  An
     experiment is performed in which an urn is selected at random in
     proportion to its contents (i.e.\ if urn A has exactly \( k \)
-    balls, then it is selected with probability \( k/N \). The a ball is
-    selected from A with probability \( p \) and from urn B with
+    balls, then it is selected with probability \( k/N \).  The a ball
+    is selected from A with probability \( p \) and from urn B with
     probability \( q = 1-p \) and placed in the previously chosen urn.
     The state of the system is the number of balls in the urn A. What
     are the absorbing states, transient states, recurrent states, if
-    any?  Is this Markov chain ergodic?
+    any?
 \end{exercise}
 \begin{solution}
     Adapted from Karlin and Taylor, \booktitle{A First Course in
@@ -1108,24 +1132,26 @@ Chapter 2, 1975.
         \end{cases}
     \]
 \end{solution}
+
 \begin{exercise}
     Your baby is learning to walk.  The baby begins by holding onto a
     couch.  Whenever she is next to the couch, there is a \( 25 \)
     percent chance that she will take a step forward and a \( 75 \)
     percent chance that she will stay clutching the couch.  If the baby
-    is one or more steps away from the couch, there’s a \( 25 \)
+    is one or more steps away from the couch, there is a \( 25 \)
     percent chance that she will take a step forward, a \( 25 \) percent
-    chance she’ll stay in place and a \( 50 \) percent chance she’ll
+    chance she will stay in place and a \( 50 \) percent chance she will
     take one step back toward the couch.  In the long run, what percent
     of the time does the baby choose to clutch the couch?
 \end{exercise}
 \begin{solution}
     Adapted from \link{https://fivethirtyeight.com/features/will-the-baby-walk-away-will-the-troll-kill-the-dwarves/}
     {FiveThirtyEight Riddler} who in turn got the problem from Steve
-    Simon. From numerical experiments with the transition probability
+    Simon.  From numerical experiments with the transition probability
     matrix, about \( 50\% \) of the time.  This matrix converges fairly
     slowly to the limiting matrix, so experiments require high powers.
 \end{solution}
+
 \begin{exercise}
     Louie lives in a town that had a \( 50 \) percent chance of rain
     each morning and an independent \( 40 \) percent chance each
@@ -1140,29 +1166,29 @@ Chapter 2, 1975.
     {FiveThirtEight Riddler} who in turn got the problem from Josh
     Vandenham.)
     \begin{remark}
-        q This problem and the solution as a Markov Chain appeared in
+        This problem and the solution as a Markov Chain appeared in
         \link{https://fivethirtyeight.com/features/can-you-win-tic-tac-toe-blindfolded/}
         {FiveThirtyEight Riddler column of December 14, 2018.}
     \end{remark}
 
-    Keep track of the different ``states'' of Louie’s umbrellas at home.
+    Keep track of the different ``states'' of Louie's umbrellas at home.
     He could have three at home and zero at work, two at home and one at
     work, one at home and two at work, or zero at home and three at
-    work.  In this solution, there are five states:  zero, one, two or three
-    umbrellas at home plus the state in which Louie has already gotten
-    wet.  The rows of the matrix are Louie’s current state, and the
-    columns are his destination.  For example, he starts in the third
-    row (two umbrellas at home).  There is no chance he’ll end up with
-    zero umbrellas at home, there is a \( 0.3 \) chance he’ll end the day
-    with just one at home (from rain in the morning and no rain in the
-    afternoon), a \( 0.5 \) chance with two at home, a \(
-    0.2 \) chance
-    with three at home, and no chance he’ll get wet on this first day.
+    work.  In this solution, there are five states:  zero, one, two or
+    three umbrellas at home plus the state in which Louie has already
+    gotten wet.  The rows of the matrix are Louie's current state, and
+    the columns are his destination.  For example, he starts in the
+    third row (two umbrellas at home).  There is no chance he will end
+    up with zero umbrellas at home, there is a \( 0.3 \) chance he will
+    end the day with just one at home (from rain in the morning and no
+    rain in the afternoon), a \( 0.5 \) chance with two at home, a \(
+    0.2 \) chance with three at home, and no chance he will get wet on
+    this first day.
 
-    The movement through the random states (the work week) is
-    described by the transition matrix, which contains the probabilities
-    of umbrellas moving from one place to another on any given day.  
-    The transition probability matrix is:
+    The movement through the random states (the work week) is described
+    by the transition matrix, which contains the probabilities of
+    umbrellas moving from one place to another on any given day. The
+    transition probability matrix is:
     \[
         \begin{pmatrix}
             0.3 & 0.2 & 0.0 & 0.0 & 0.5\\
@@ -1172,10 +1198,9 @@ Chapter 2, 1975.
             0.0 & 0.0 & 0.0 & 0.0 & 1.0
         \end{pmatrix}
         .
-    \] 
-    To get the probabilities for the entire work week, simply multiply
-    this matrix by itself five times, representing the meteorological
-    randomness unfolding over the five days, which gives
+    \] To get the probabilities for the entire work week, simply
+    multiply this matrix by itself five times, representing the
+    meteorological randomness unfolding over the five days, which gives
     \[
         \begin{pmatrix}
             \nonumber 0.04791 &0.07634 &0.04976 &0.01776 &0.80823\\
@@ -1188,22 +1213,23 @@ Chapter 2, 1975.
     \]
 
     Last, look at the third row (the state in which he began) and the
-    final column:  That’s the chance he gets wet during the week.
-    Subtract from \( 1 \) to find the chance that he didn’t get wet
-    and get \( 69.27 \) percent.
+    final column:  That's the chance he gets wet during the week.
+    Subtract from \( 1 \) to find the chance that he didn't get wet and
+    get \( 69.27 \) percent.
 
     \begin{remark}
         This is a version of Ross, page 181, problem number 22.
     \end{remark}
-\end{solution}
+  \end{solution}
+  
 \begin{exercise}
-    You’re going to play a game.  Like many probability games, this
-    one involves an infinite supply of ping-pong balls.
+    You are going to play a game.  Like many probability games, this one
+    involves an infinite supply of ping-pong balls.
 
     The balls are numbered \( 1 \) through \( N \).  There is also a
     group of \( N \) cups, labeled \( 1 \) through \( N \), each of
     which can hold an unlimited number of ping-pong balls.  The game is
-    played in rounds. A round is composed of two phases:  throwing and
+    played in rounds.  A round is composed of two phases:  throwing and
     pruning.
 
     During the throwing phase, the player takes balls randomly, one at a
@@ -1231,22 +1257,23 @@ Chapter 2, 1975.
         This problem and the solution as a Markov Chain appeared in
         \link{https://fivethirtyeight.com/features/the-riddler-just-had-to-go-and-reinvent-beer-pong/}
         {FiveThirtyEight} Riddler column of November 16, 2018.  The
-        solution is adapted from \link{https://laurentlessard.com/bookproofs/beer-pong/}
+        solution and solution figures are adapted from \link{https://laurentlessard.com/bookproofs/beer-pong/}
         {Five Thirty Eight Riddler}.
     \end{remark}
 
     \begin{enumerate}[label=(\alph*)]
     \item
-        For this question, the rounds don’t matter at all.  The game
+        For this question, the rounds don't matter at all.  The game
         will end once there is at least one correct ball in each cup,
         and the pruning phase at the end of each round only removes
         incorrect balls so effectively neglect it.
 
         This is a classical coupon collector problem.  Define \( Y_i \),
-        for \( i \) from \( 0 \) to \( N - 1 \), to be the number of additional
-        tosses that need to be obtained after \( i \) distinct cups have
-        been filled.  Define \( Y \) as the total number of tosses
-        required to fill the cups with correspondingly numbered balls so
+        for \( i \) from \( 0 \) to \( N - 1 \), to be the number of
+        additional tosses that need to be obtained after \( i \)
+        distinct cups have been filled.  Define \( Y \) as the total
+        number of tosses required to fill the cups with correspondingly
+        numbered balls so
         \[
             Y = Y_0 + Y_1 + Y_2 + \cdots + Y_{N-1}.
         \] When \( i \) distinct cups have been filled with
@@ -1256,21 +1283,22 @@ Chapter 2, 1975.
         in the correct cup.  It follows that the probability a new cup
         is filled with the correctly numbered ball is \( \frac{N-i}{N}
         \cdot \frac{1}{N} \).  Thus, \( Y_i \) is a geometric random
-        variable with success parameter \( \frac{N-i}{N^2} \). Then \(
+        variable with success parameter \( \frac{N-i}{N^2} \).  Then \(
         \E{Y_i} = \frac{N^2}{N-i} \).  Therefore
         \begin{align*}
             \E{Y} &= \E{Y_0} + \E{Y_1} + \E{Y_2} + \cdots + Y_{N-1} \\
             &= N + \frac{N^2}{N-1} + \frac{N^2}{N-2} + \cdots + \frac{N^2}
             {1} \\
-            &= N^2 \sum_{k=1}^N \frac{1}{k} \approx N^2(\log N + \gamma)
+            &= N^2 \sum_{\nu=1}^N \frac{1}{\nu} \approx N^2(\log N +
+            \gamma)
         \end{align*}
         where \( \gamma \approx 0.5772 \) is the Euler-Mascheroni
         constant.
     \item
         This is a more complicated question, so to illustrate the
         approach solve it for the case \( N=3 \).  Begin by breaking
-        each round into a number of stages, which track the progress of
-        cups as they are filled.  In the diagram below, each
+        each round into a number of stages.  Each stage tracks the
+        progress of cups as they are filled.  In the diagram below, each
         cup is either empty (no ball), is red (incorrect ball), or is
         green (correct ball).  The transition probabilities are on the
         arrows.
@@ -1282,20 +1310,22 @@ Chapter 2, 1975.
         correspondingly numbered ball.  A colored cup may contain more
         than one ball.  The cup position left to right is not associated
         with the cup or ball numbers, the position merely indicates the
-        number of correctly or incorrectly filled cups. For example, if \(
-        2 \) balls have been thrown into \( 2 \) cups, one correctly
-        numbered, one incorrectly numbered, the center diagram at
-        \(j=1, k=2\)
-        illustrates the case.  Then
-        on the next ball thrown, that ball can incorrectly go into the
-        empty cup with probability \( \frac{N-i}{N} \cdot \frac{1}{N} \).
-        The correct ball can go into the correct cup with probability \(
-        \frac{1}{N^2} \). In this diagram, self-loops have whatever
-        probability is required so that the outgoing arrows sum to 1.
-        This is a Markov chain.  We start on the initial state on the
-        left (all cups empty), and advance to the absorbing state on the
-        right (all cups full).  The transition matrix for \( N=3 \),
-        arranging the states from top to bottom and left to right, is:
+        number of correctly or incorrectly filled cups.  For example, if
+        \( 2 \) balls have been thrown into \( 2 \) cups, one correctly
+        numbered, one incorrectly numbered, the center diagram at \(
+        j=1, k=2 \) illustrates this case.  Then on the next ball
+        thrown, that ball can incorrectly go into the empty cup with
+        probability \( \frac{N-i}{N} \cdot \frac{1}{N} \). The correct
+        ball can go into the correct cup with probability \( \frac{1}{N^2}
+        \).  In this diagram, self-loops have whatever probability is
+        required so that the outgoing arrows sum to \( 1 \). This is a
+        Markov chain.
+
+        Start on the initial state at the upper left (all cups empty, \(
+        k=0 \), \( j=0 \)), and advance to the absorbing state at the
+        lower right (all cups full \( k=3 \), \( j=3 \)).  The
+        transition matrix for \( N=3 \), labeling the states by columns
+        from top to bottom and left to right, is:
         \[
             A =
             \begin{pmatrix}
@@ -1323,13 +1353,12 @@ Chapter 2, 1975.
         doesn't matter how much time is spent at each stage, the state
         of the Markov chain hasn't changed.  See below for an
         illustration of this normalization, based on the observation
-        that \( \Prob{B \given ~A} = \Prob{B \given B \union C} = \frac{p}
-        {p+q} \).
+        that \( \Prob{B \given \sim A} = \Prob{B \given B \union C} =
+        \frac{p} {p+q} \).
 
         \includegraphics[scale=0.9]{normalization.png}
 
-        Here is what our transition matrix looks like after
-        normalization.
+        The transition matrix after normalization is
         \[
             A_{\text{norm}} =
             \begin{pmatrix}
@@ -1362,28 +1391,28 @@ Chapter 2, 1975.
                 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
                 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
                 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0\\
-                0 & 0 & 0 & 0 & 0 & \frac{2}{3} & \frac{1}{3} & 0 & 0\\
+                0 & 0 & 0 & 0 & 0 & \frac{2}{3} & \frac{1}{3} & 0 & 0 &
+                0 \\
                 0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{7} & \frac{4}{7} &
                 \frac{2}{7} & 0\\
-                0 & 0 & 0 & 0 & 0 & 0 & 1 & \frac{2}{3} & \frac{1}{3} &
-                0\\
-                \frac{2}{5} & \frac{1}{5} & 0 & 0 & 0 & 0 & 0 & 0 &
-                \frac{2}{5} & 0\\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \frac{2}{3} & \frac{1}{3}\\
+                \frac{2}{5} & \frac{1}{5} & 0 & 0 & 0 & 0 & 0 & 0 & 0 &
+                \frac{2}{5}\\
                 0 & \frac{1}{2} & \frac{1}{4} & 0 & 0 & 0 & 0 & 0 & 0 &
                 \frac{1}{4} \\
                 0 & 0 & \frac{2}{3} & \frac{1}{3} & 0 & 0 & 0 & 0 & 0 &
                 0
             \end{pmatrix}
             .
-        \] The normal matrix \( (I = T)^{-1} \) is then
+        \] The normal matrix \( (I - T)^{-1} \) is
         \[
             \begin{pmatrix}
-                1 & \frac{2}{3} & \frac{3}{7} & \frac{2}{3} & \frac{7}{9}
-                & \frac{7}{36}\\
-                0 & 1 & \frac{1}{7} & \frac{2}{3} & \frac{7}{9} & \frac{7}
-                {36}\\
-                0 & 0 & 1 & \frac{2}{3} & \frac{7}{9} & \frac{7}{36}\\
-                0 & 0 & 0 & 1 & \frac{2}{3} & \frac{1}{6}\\
+                1 & \frac{2}{3} & \frac{3}{7} & \frac{8}{21} & \frac{22}
+                {35} & \frac{3}{10}\\
+                0 & 1 & \frac{1}{7} & \frac{4}{7} & \frac{64}{105} &
+                \frac{1} {5}\\
+                0 & 0 & 1 & 0 & \frac{7}{9} & \frac{7}{36}\\
+                0 & 0 & 0 & 1 & \frac{2}{3} & \frac{1}{2}\\
                 0 & 0 & 0 & 0 & 1 & \frac{1}{4}\\
                 0 & 0 & 0 & 0 & 0 & 1
             \end{pmatrix}
@@ -1391,8 +1420,8 @@ Chapter 2, 1975.
         \] Then the expected number of throws until the cups are filled
         is (as a column vector)
         \[
-            \left( \frac{941}{252}, \frac{701}{252}, \frac{95}{36},
-            \frac{11}{6}, \frac{5}{4}, 1 \right)^{T}.
+            \left( \frac{143}{42}, \frac{53}{21}, \frac{13}{6}, \frac{3}
+            {2}, \frac{5}{4}, 1 \right)^{T}.
         \]
 
         % Finding the limiting
@@ -1437,7 +1466,6 @@ Chapter 2, 1975.
         % appear to be an easy way to extract an analytic formula, but all
         % the steps above are easy to compute numerically.
 \end{enumerate}
-
 \end{solution}
 
 \hr
@@ -1489,22 +1517,13 @@ Last modified:  \flastmod
 
 \end{document}
 
-File name                  : markovchain.tex
-Number of characters       : 58420
-Number of words            : 6433
-Percent of complex words   : 14.77
-Average syllables per word : 1.6806
-Number of sentences        : 332
-Average words per sentence : 19.3765
-Number of text lines       : 1229
-Number of blank lines      : 212
-Number of paragraphs       : 188
-
+File name :  markovchain.tex Number of characters :  58420 Number of
+words :  6433 Percent of complex words :  14.77 Average syllables per
+word :  1.6806 Number of sentences :  332 Average words per sentence :
+19.3765 Number of text lines :  1229 Number of blank lines :  212 Number
+of paragraphs :  188
 
 READABILITY INDICES
 
-Fog                        : 13.6576
-Flesch                     : 44.9930
-Flesch-Kincaid             : 11.7974
-
+Fog :  13.6576 Flesch :  44.9930 Flesch-Kincaid :  11.7974
 
